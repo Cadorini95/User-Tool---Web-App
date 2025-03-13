@@ -1,0 +1,214 @@
+body {
+    /* Estilos para o plano de fundo da página */
+    font-family: 'Work Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;                     /* Permite posicionar elementos relativos ao plano de fundo */
+}
+
+body::before {
+    content: "";
+    position: fixed;                        /* Fixa a pseudo-elemento */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/imagem_fundo.jpg");
+    background-size: cover;                 /* Garante que a imagem cubra toda a área visível */
+    background-position: center;            /* Centraliza a imagem */
+    background-repeat: no-repeat;           /* Evita a repetição da imagem */
+    opacity: 0.20;                          /* Define a transparência da imagem de fundo */
+    z-index: -1;                            /* Coloca a pseudo-elemento atrás do conteúdo */
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color: rgba(0, 0, 0, 0.0); /* Define a cor e a opacidade da sobreposição */
+    z-index: -1;                            /* Coloca a sobreposição atrás do conteúdo */
+    pointer-events: none;                   /* Permite clicar nos elementos abaixo da sobreposição */
+}
+
+/* Estilos para o título centralizado */
+.centered-title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    color: #333;
+    position: relative;                         /* Permite posicionar o título acima da sobreposição */
+    z-index: 2;                                 /* Coloca o título acima da sobreposição */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  rgba(0, 51, 102, 1);   /* Define a cor azul escuro */
+    opacity: 0.9;                               /* Define a opacidade da barra de navegação */
+    padding: 10px;
+    position: relative;                         /* Garante que a barra de navegação fique acima da sobreposição */
+    z-index: 2;                                 /* Garante que a barra de navegação fique acima da sobreposição */
+}
+
+.navbar img {
+    height: 100px;
+}
+
+.navbar .title {
+    color: white;
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;                     /* Permite posicionar as opções acima da sobreposição */
+    z-index: 2;                             /* Coloca as opções acima da sobreposição */
+}
+
+.option {
+    margin: 0 20px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    position: relative;                     /* Permite posicionar as opções acima da sobreposição */
+    z-index: 2;                             /* Coloca as opções acima da sobreposição */
+    font-size: 18px;
+}
+
+.option img {
+    height: 200px;
+    width: 200px;
+}
+
+.option p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+
+/* Estilos para o botão de download com a classe download-link */
+.download-link {
+    display: block;
+    width: 100%;
+    padding: 15px 25px;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgba(0, 51, 102, 1);
+    opacity: 0.9;
+    color: #fff;
+    border-radius: 20px;
+    box-sizing: border-box;                     /* Garante que o padding seja incluído na largura total */
+    text-align: center;                         /* Centraliza o texto */
+    font-size: 16px;                            /* Define o tamanho da fonte */
+    text-decoration: none;                      /* Remove a sublinhado do link */
+    margin-bottom: 20px;                        /* Adiciona um espaço abaixo do link */
+}
+
+.download-link:hover {
+    background-color: #004494;
+}
+
+/* Estilos para o modal */
+.modal {
+    display: none; /* Esconde o modal por padrão */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; /* Limita a largura máxima do modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;               /* Limita a largura máxima do formulário */
+    margin: 0 auto;                 /* Centraliza o formulário */
+    padding: 20px;
+    border: 5px solid #333;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    min-height: 350px;              /* Define uma altura mínima para o formulário */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;        /* Centraliza verticalmente o conteúdo do formulário */
+}
+
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* Estilos para o botão de escolha de arquivo com a classe input-arquivo */
+.input-arquivo {
+    display: none;                          /* Esconde o input de arquivo padrão */
+}
+
+/* Estilos para o botão de submit com a classe btn-submit */
+.botao-arquivo{
+    display: block;
+    width: 100%;
+    padding: 15px 25px;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #333; 
+    color: #fff;
+    border-radius: 20px;
+    box-sizing: border-box;                  /* Garante que o padding seja incluído na largura total */
+    text-align: center;                      /* Centraliza o texto */
+    font-size: 16px;                         /* Define o tamanho da fonte */
+}
+
+
+.botao-arquivo:hover {
+    background-color: #333; 
+}
+
+/* Estilos para a mensagem de arquivo selecionado */
+.file-name {
+    display: block;
+    margin-top: 10px;
+    color: #333;
+}
+

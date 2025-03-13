@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+        .navbar img {
+            height: 50px;
+        }
+        .navbar .title {
+            color: white;
+            margin-left: 10px;
+            font-size: 24px;
+        }
+        .message {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='images/plant_cost.png') }}" alt="Company Logo">
+        <div class="title">User Tool</div>
+    </div>
+    <div class="message">
+        <p>Por favor, exclua uma opção para realizar o upload das informações de custos de planta e manutenção.</p>
+    </div>
+</body>
+</html>

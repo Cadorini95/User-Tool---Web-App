@@ -1,0 +1,53 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+            <li class="alert alert-{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<form method="POST" action="{{ url_for('update_plant_cost') }}" enctype="multipart/form-data">
+    <h3 class="centered-title">
+            Atualização dos custos de produção/estoque
+    </h3><br>
+    <a href="{{ url_for('static', filename='models/plant_cost.xlsx') }}" class="download-link" download title = "Descrição das colunas:
+    - plant_id: identificador da planta/unidade industrial
+    - product : nome do produto
+    - plant_cost: custo de produção da planta
+    - inventory_cost: custo de estoque da planta
+    - month_year: data mensal do custo apurado (YYYY-MM)">Baixar arquivo modelo</a><br>
+    {{ form.hidden_tag() }}  
+     <div class="bloco-arquivo">
+        <label for="file" class="botao-arquivo">
+            Escolher arquivo para upload
+        </label>
+        {{ form.file(id="file", style="display:none;") }}
+        <span id="file-name" class="file-name">Nenhum arquivo selecionado</span><br>
+        {{ form.submit(class="botao-arquivo") }} <br>
+    </div>
+    <a href="{{ url_for('home') }}">Voltar ao menu principal</a>
+</form>
+
+<script>
+    let input = document.getElementById("file");
+    let fileNameSpan = document.getElementById("file-name");
+
+    input.addEventListener("change", () => {
+        let inputFile = document.querySelector("input[type=file]").files[0];
+
+        if (inputFile) {
+            fileNameSpan.classList.add("visivel");
+            fileNameSpan.innerText = inputFile.name;
+        } else {
+            fileNameSpan.classList.remove("visivel");
+            fileNameSpan.innerText = "Nenhum arquivo selecionado";
+        }
+    });
+</script>
+
+{% endblock %}

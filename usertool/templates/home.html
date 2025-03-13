@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {%  block titulo %}
+            UserTool
+        {% endblock %}     
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+{% block body %}
+<body>
+    <div class="background-overlay"></div>
+    <header>
+        <div class="navbar">
+            <img src="{{ url_for('static', filename='images/company-logo.png') }}" alt="Company Logo", class="nav-image">
+            <div class="title">User Tool</div>
+        </div>
+    </header>
+    <main>
+        <h2 class="centered-title"> Escolha algumas das opções para proceder</h2>
+        <div class="options">
+            <div class="option">
+                <a href="{{ url_for('update_plant_cost') }}">
+                    <p>Custos de Produção/Estoque</p>
+                    <img src="{{ url_for('static', filename='images/plant_cost.png') }}" alt="Plant Cost" class="nav-image">
+                </a>
+            </div>
+            <div class="option">
+                <a href="{{ url_for('update_maint_calendar') }}">
+                    <p>Plano de Manutenção</p>
+                    <img src="{{ url_for('static', filename='images/maint_calendar.png') }}" alt="Maintenance Calendar" class="nav-image">
+                </a>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+{% endblock %}    
+</html>
