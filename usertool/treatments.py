@@ -2,7 +2,6 @@ import os
 import pandas as pd
 from datetime import datetime
 from . import *
-from .models import PlantCost
 from sqlalchemy import create_engine
 
 
@@ -19,7 +18,8 @@ class FilesTreatment:
         self.creation_date = datetime.now().strftime('%Y-%m')
         
         self.commit = commit
-        self.engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
+        self.engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"], fast_executemany=True)
+        self.df = None, 
 
     def load_raw_file(self):
         if self.filename.endswith('.csv'):
@@ -81,5 +81,5 @@ class FilesTreatment:
             app.logger.debug('Salvando arquivo tratado no banco de dados.')
             table = PLANT_COST if self.type == 'plant_cost' else CALENDAR
             self.df.to_sql(table, con=self.engine, if_exists='append', index=False)  
-            app.logger.info(f'Arquivo salvo na tabela {SCHEMA}.{PLANT_COST}')
+            app.logger.info(f'Arquivo salvo na tabela {SCHEMA}.{table}')
         return self.df    

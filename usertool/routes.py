@@ -24,15 +24,15 @@ def update_plant_cost():
         if file and allowed_file(file.filename):
             app.logger.debug('Arquivo de custo de planta enviado com sucesso!')
             filename = secure_filename(file.filename)
-            path_file = os.path.join(   
-                                        os.path.abspath(os.path.dirname(__file__)),  ## LOCAL ONDE ARQUIVO routes.py ESTÁ HOSPEDADO
-                                        app.config["PLANT_COST_UPLOAD"], 
-                                        filename
-                                    )
+            
+            # Garantir que o diretório exista
+            upload_folder = os.path.join(app.root_path, app.config["PLANT_COST_UPLOAD"])
+            os.makedirs(upload_folder, exist_ok=True)
+            
+            path_file = os.path.join(upload_folder, filename)
             file.save(path_file)
             app.logger.debug('Arquivo de custo de planta atualizado com sucesso') 
 
-            
             plant_cost =  FilesTreatment(path_file, commit=True, type='plant_cost')
 
             try:
@@ -79,3 +79,26 @@ def update_maint_calendar():
         else:
             flash('Arquivo de calendário de manutenção não enviado. Formato inválido!', 'danger')
     return render_template('update_maint_calendar.html', form=form)
+
+@app.route('/test_connection_direct', methods=['GET'])
+def test_connection_direct():
+    import pyodbc
+    try:
+        conn_str = (
+            "DRIVER={ODBC Driver 17 for SQL Server};"
+            f"SERVER={os.getenv('DB_HOST')};"
+            f"DATABASE={os.getenv('DB_NAME')};"
+            f"UID={os.getenv('DB_USER')};"
+            f"PWD={os.getenv('DB_PASSWORD')};"
+            "Connection Timeout=300;"
+        )
+        app.logger.info(f"String de conexão direta: {conn_str}")
+        conn = pyodbc.connect(conn_str)
+        cursor = conn.cursor()
+        cursor.execute("SELECT TOP 10 * FROM dbo.PLANT_COST")
+        rows = cursor.fetchall()
+        conn.close()
+        return {"status": "success", "data": [dict(zip([column[0] for column in cursor.description], row)) for row in rows]}, 200
+    except Exception as e:
+        app.logger.error(f"Erro ao conectar diretamente ao banco de dados: {e}")
+        return {"status": "error", "message": str(e)}, 500

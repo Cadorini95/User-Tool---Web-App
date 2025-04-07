@@ -1,3 +1,5 @@
+BEGIN TRANSACTION;
+
 CREATE TABLE PLANT_COST (
     plant_id NVARCHAR(10),
     product NVARCHAR(10),
@@ -5,3 +7,8 @@ CREATE TABLE PLANT_COST (
     inventory_cost FLOAT,
     month_year DATETIME
 );
+
+select * from dbo.PLANT_COST
+
+ROLLBACK;
+COMMIT;
